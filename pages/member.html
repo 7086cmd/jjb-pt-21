@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>蛟川书院纪检部管理平台 - 成员</title>
+        <link
+            href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons|Material+Icons+flat
+            borderedd"
+            rel="stylesheet" type="text/css">
+        <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+            rel="stylesheet" type="text/css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/animate.css@^4.0.0/animate.min.css"
+            rel="stylesheet" type="text/css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/quasar@2.1.0/dist/quasar.prod.css"
+            rel="stylesheet" type="text/css">
+        <style>
+        .my-card {
+            width: 100%
+        }
+        </style>
+    </head>
+    <body>
+        <body>
+            <!-- example of injection point where you write your app template -->
+            <div id="q-app">
+                <q-layout view="hHh lpR fFf">
+
+                    <q-header class="bg-primary text-white animate__animated
+                        animate__zoomInDown">
+                        <q-toolbar>
+                            <q-btn dense flat round icon="menu"
+                                @click="toggleLeftDrawer"></q-btn>
+                            <q-toolbar-title>
+                                蛟川书院纪检部管理平台 - 成员
+                            </q-toolbar-title>
+
+                            <q-btn dense flat round icon="menu"
+                                @click="toggleRightDrawer"></q-btn>
+                        </q-toolbar>
+                    </q-header>
+
+                    <q-drawer show-if-above v-model="leftDrawerOpen"
+                        side="left" behavior="desktop" bordered>
+                        <q-tabs
+                            v-model="pge.page"
+                            vertical>
+                            <q-bar color="primary" class="bg-primary
+                                text-white">选项栏</q-bar>
+
+                            <q-tab name="root" icon="arrow_back" label="返回根目录"
+                                class="animate__animated
+                                animate__lightSpeedInRight"></q-tab>
+                            <q-tab name="home" icon="home" label="主页"
+                                class="animate__animated
+                                animate__lightSpeedInLeft"></q-tab>
+                            <q-tab name="panel" icon="list" label="面板"
+                                class="animate__animated
+                                animate__lightSpeedInRight"></q-tab>
+                            <q-tab name="methods" icon="functions" label="功能"
+                                class="animate__animated
+                                animate__lightSpeedInLeft"></q-tab>
+                            <q-tab name="new_d" icon="add"
+                                label="新建扣分" class="animate__animated
+                                animate__lightSpeedInRight"></q-tab>
+                            <q-tab name="feedback" icon="feedback" label="反馈"
+                                class="animate__animated
+                                animate__lightSpeedInLeft"></q-tab>
+                            <q-tab name="editpwd" icon="password" label="修改密码"
+                                class="animate__animated
+                                animate__lightSpeedInLeft"></q-tab>
+                            <q-tab name="about" icon="help" label="关于我"
+                                class="animate__animated
+                                animate__lightSpeedInRight"></q-tab>
+                            <q-tab name="exit" icon="input" label="退出登录"
+                                class="animate__animated
+                                animate__lightSpeedInLeft"></q-tab>
+                        </q-tabs>
+                    </q-drawer>
+
+                    <q-drawer show-if-above v-model="rightDrawerOpen"
+                        side="right" behavior="desktop" bordered>
+                        <q-bar color="primary" class="bg-primary text-white">消息中心</q-bar>
+                        <br>
+                        <br>
+                        <q-chat-message :text="tips.tips"></q-chat-message>
+                    </q-drawer>
+
+                    <q-page-container>
+
+                        <q-bar color="primary" class="bg-primary text-white">操作区</q-bar>
+                        <q-tab-panels
+                            v-model="pge.page"
+                            animated
+                            swipeable
+                            vertical
+                            transition-prev="jump-up"
+                            transition-next="jump-up">
+                            <q-tab-panel name="home">
+                                <h4 v-text="page1Reactive.structure.time"
+                                    id="time"
+                                    style="text-align: right;"></h4>
+                                <h3 id="user" style='display: none'
+                                    class='animate__animated animate__fadeIn'></h3>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <q-card flat bordered
+                                            class="animate__animated
+                                            animate__zoomInDown"
+                                            id="c1">
+                                            <q-card-section>
+                                                <div class="text-h6">控制面板</div>
+                                                <div class="text-subtitle2">查看所有的信息</div>
+                                            </q-card-section>
+                                            <q-card-actions align="center">
+                                                <q-btn flat
+                                                    @click="toTag('panel')">点此进入</q-btn>
+                                            </q-card-actions>
+                                        </q-card></div>
+                                    <div class="col-4">
+                                        <q-card flat bordered
+                                            class="animate__animated
+                                            animate__zoomInDown"
+                                            id="c2">
+                                            <q-card-section>
+                                                <div class="text-h6">新建扣分</div>
+                                                <div class="text-subtitle2">有扣分？新建一个</div>
+                                            </q-card-section>
+                                            <q-card-actions align="center">
+                                                <q-btn flat
+                                                    @click="toTag('new_d')">点此进入</q-btn>
+                                            </q-card-actions>
+                                        </q-card>
+                                    </div>
+                                    <div class="col-4">
+                                        <q-card flat bordered
+                                            class="animate__animated
+                                            animate__zoomInDown"
+                                            id="c3">
+                                            <q-card-section>
+                                                <div class="text-h6">所有功能</div>
+                                                <div class="text-subtitle2">诶？不够用？</div>
+                                            </q-card-section>
+                                            <q-card-actions align="center">
+                                                <q-btn flat
+                                                    @click="toTag('methods')">点此进入</q-btn>
+                                            </q-card-actions>
+                                        </q-card>
+                                    </div>
+                                </div>
+                                <br><br>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <q-card flat bordered
+                                            class="animate__animated
+                                            animate__zoomInDown"
+                                            id="c4">
+                                            <q-card-section>
+                                                <div class="text-h6">关于我自己</div>
+                                                <div class="text-subtitle2">诶？我是谁</div>
+                                            </q-card-section>
+                                            <q-card-actions align="center">
+                                                <q-btn flat
+                                                    @click="toTag('about')">点此进入</q-btn>
+                                            </q-card-actions>
+                                        </q-card>
+                                    </div>
+                                    <div class="col-4">
+
+                                        <q-card flat bordered
+                                            class="animate__animated
+                                            animate__zoomInDown"
+                                            id="c5">
+                                            <q-card-section>
+                                                <div class="text-h6">不满意？</div>
+                                                <div class="text-subtitle2">新建一个反馈</div>
+                                            </q-card-section>
+                                            <q-card-actions align="center">
+                                                <q-btn flat
+                                                    @click="toTag('feedback')">点此进入</q-btn>
+                                            </q-card-actions>
+                                        </q-card>
+                                    </div>
+                                    <div class="col-4">
+
+                                        <q-card flat bordered
+                                            class="animate__animated
+                                            animate__zoomInDown"
+                                            id="c6">
+                                            <q-card-section>
+                                                <div class="text-h6">退出登录</div>
+                                                <div class="text-subtitle2">我要退出登录！</div>
+                                            </q-card-section>
+                                            <q-card-actions align="center">
+                                                <q-btn flat
+                                                    @click="toTag('exit')">点此进入</q-btn>
+                                            </q-card-actions>
+                                        </q-card>
+                                    </div>
+                                </div>
+
+                            </q-tab-panel>
+
+                            <q-tab-panel name="new_d">
+                                <h3>新建扣分</h3>
+                                <br><br>
+                                <q-form>
+                                    <q-input v-model="date" outlined
+                                        class="animate__animated
+                                        animate__flipInX">
+                                        <template v-slot:prepend>
+                                            <q-icon name="event"
+                                                class="cursor-pointer">
+                                                <q-popup-proxy
+                                                    transition-show="scale"
+                                                    transition-hide="scale">
+                                                    <q-date v-model="date"
+                                                        mask="YYYY-MM-DD HH:mm">
+                                                        <div class="row
+                                                            items-center
+                                                            justify-end">
+                                                            <q-btn v-close-popup
+                                                                label="Close"
+                                                                color="primary"
+                                                                flat></q-btn>
+                                                        </div>
+                                                    </q-date>
+                                                </q-popup-proxy>
+                                            </q-icon>
+                                        </template>
+
+                                        <template v-slot:append>
+                                            <q-icon name="access_time"
+                                                class="cursor-pointer">
+                                                <q-popup-proxy
+                                                    transition-show="scale"
+                                                    transition-hide="scale">
+                                                    <q-time v-model="date"
+                                                        mask="YYYY-MM-DD HH:mm"
+                                                        format24h>
+                                                        <div class="row
+                                                            items-center
+                                                            justify-end">
+                                                            <q-btn v-close-popup
+                                                                label="Close"
+                                                                color="primary"
+                                                                flat></q-btn>
+                                                        </div>
+                                                    </q-time>
+                                                </q-popup-proxy>
+                                            </q-icon>
+                                        </template>
+                                    </q-input>
+                                    <br><br>
+                                    <q-input class="animate__animated
+                                        animate__flipInY"
+                                        v-model.number="newDReactive.grade"
+                                        type="number" label="年级" outlined></q-input>
+                                    <br><br>
+                                    <q-input class="animate__animated
+                                        animate__flipInX"
+                                        v-model.number="newDReactive.class"
+                                        type="number" label="班级" outlined></q-input>
+                                    <br><br>
+                                    <q-input class="animate__animated
+                                        animate__flipInY"
+                                        v-model.number="newDReactive.number"
+                                        type="number" label="学号（2位）"
+                                        outlined></q-input>
+                                    <br><br>
+                                    <q-input class="animate__animated
+                                        animate__flipInX"
+                                        v-model.number="newDReactive.deduction"
+                                        type="number" label="扣分数" outlined></q-input>
+                                    <br><br>
+                                    <q-select class="animate__animated
+                                        animate__flipInY" use-input
+                                        :options="allTypes"
+                                        v-model="newDReactive.type"
+                                        label="请选择种类" outlined></q-select>
+                                    <br><br>
+                                    <q-input class="animate__animated
+                                        animate__flipInX"
+                                        v-model.number="newDReactive.description"
+                                        type="textarea" label="解释说明"
+                                        outlined></q-input>
+                                    <br><br>
+                                    <q-btn outline
+                                        @click="clearAllDuction"
+                                        class="full-width"
+                                        color="primary" label="取消"></q-btn>
+                                    <br><br>
+                                    <q-btn outline
+                                        @click="submitDeduction"
+                                        class="full-width"
+                                        label="确定"></q-btn>
+                                </q-form>
+                            </q-tab-panel>
+                            <q-tab-panel name="panel">
+                                <h3 id="user" style='display: none'
+                                    class='animate__animated
+                                    animate__fadeIn'></h3>
+                                <div id="panel_all">
+                                    <div class="row">
+                                        <div class="col-4">
+
+                                            <q-card flat bordered
+                                                class="animate__animated
+                                                animate__rotateIn">
+                                                <h4
+                                                    style="padding-left:10px">您的素质分为:
+                                                </h4>
+                                                <h2
+                                                    v-text="page1Reactive.structure.score"
+                                                    style="padding-left:15px"></h2>
+                                            </q-card>
+                                        </div>
+                                        <div class="col-4">
+                                            <q-card flat bordered
+                                                class="animate__animated
+                                                animate__rotateIn">
+                                                <h4
+                                                    style="padding-left:10px">您所检查到的他人违纪次数:
+                                                </h4>
+                                                <h2
+                                                    v-text="page1Reactive.structure.totaldeductions"
+                                                    style="padding-left:15px"></h2>
+                                            </q-card>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-4">
+                                            <q-card flat bordered
+                                                class="animate__animated
+                                                animate__rotateIn">
+                                                <h4
+                                                    style="padding-left:10px">您的缺勤次数:
+                                                </h4>
+                                                <h2
+                                                    v-text="page1Reactive.structure.totalabsents"
+                                                    style="padding-left:15px"></h2>
+                                            </q-card>
+                                        </div>
+                                        <div class="col-4">
+
+                                            <q-card flat bordered
+                                                class="animate__animated
+                                                animate__rotateIn">
+                                                <h4
+                                                    style="padding-left:10px">您总共的违纪所导致的扣分:
+                                                </h4>
+                                                <h2
+                                                    v-text="page1Reactive.structure.totalviolation"
+                                                    style="padding-left:15px"></h2>
+                                            </q-card>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <q-card flat bordered
+                                                class="animate__animated
+                                                animate__rotateIn">
+                                                <h4
+                                                    style="padding-left:10px">您的反馈数量:
+                                                </h4>
+                                                <h2
+                                                    v-text="page1Reactive.structure.totalfeedbacks"
+                                                    style="padding-left:15px"></h2>
+                                            </q-card>
+                                        </div>
+                                        <div class="col-4">
+                                            <q-card flat bordered
+                                                class="animate__animated
+                                                animate__rotateIn">
+                                                <h4
+                                                    style="padding-left:10px">返回主页:
+                                                </h4>
+                                                <q-btn flat
+                                                    @click="toTag('home')"
+                                                    style="text-align:
+                                                    center;">点此进入</q-btn>
+                                            </q-card>
+                                        </div>
+                                    </div>
+                                </div>
+                            </q-tab-panel>
+                        </q-tab-panels>
+                    </q-page-container>
+
+                </q-layout>
+            </div>
+
+            <!-- Add the following at the end of your body tag -->
+            <script
+                src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/quasar@2.1.0/dist/quasar.umd.prod.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/quasar@2.1.0/dist/lang/zh-CN.umd.prod.js"></script>
+            <script src="/socket.io/socket.io.js"></script>
+            <script src="/scripts/member.js"></script>
+            <script>
+                socket.on('logout', () => {
+                    window.opener = null
+                    window.location.href = "/404"
+                    window.close()
+                })
+            </script>
+        </body>
+    </html>

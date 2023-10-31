@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html>
+    <!--
+    WARNING! Make sure that you match all Quasar related
+    tags to the same version! (Below it's "@2.0.4")
+  -->
+    <head>
+
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>蛟川书院纪检部管理平台 - 学生登录</title>
+        <link
+            href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons"
+            rel="stylesheet" type="text/css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/@mdi/font@^5.0.0/css/materialdesignicons.min.css"
+            rel="stylesheet" type="text/css">
+        <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+            rel="stylesheet" type="text/css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@^1.0.0/font/bootstrap-icons.css"
+            rel="stylesheet" type="text/css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/animate.css@^4.0.0/animate.min.css"
+            rel="stylesheet" type="text/css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/quasar@2.0.4/dist/quasar.prod.css"
+            rel="stylesheet" type="text/css">
+        <style>
+        </style>
+    </head>
+
+    <body>
+        <!-- example of injection point where you write your app template -->
+        <div id="app" style="text-align: center;" v-loading="load">
+            <q-layout view="hHh lpR fFf">
+
+                <q-header bordered>
+                    <q-toolbar>
+                        <q-btn dense flat round icon="home"
+                            @click="toHome"></q-btn>
+                        <q-toolbar-title>
+                            蛟川书院纪检部管理平台
+                        </q-toolbar-title>
+
+                        <q-btn-dropdown flat style="font-size: 16px;"
+                            icon="account_circle" :label="classd" split>
+                            <q-list>
+                                <q-item clickable v-close-popup
+                                    @click="regretpwd">
+                                    <q-item-section>
+                                        <q-item-label>修改密码</q-item-label>
+                                    </q-item-section>
+                                </q-item>
+                                <q-item clickable v-close-popup
+                                    @click="feedbackstart">
+                                    <q-item-section>
+                                        <q-item-label>反馈</q-item-label>
+                                    </q-item-section>
+                                </q-item>
+
+                                <q-item clickable v-close-popup @click="logout">
+                                    <q-item-section>
+                                        <q-item-label>登出</q-item-label>
+                                    </q-item-section>
+                                </q-item>
+                            </q-list>
+                        </q-btn-dropdown>
+                    </q-toolbar>
+                </q-header> <q-page-container>
+
+                    <br><br>
+                    <div style="padding-left: 4em; padding-right: 4em;
+                        padding-top:
+                        8em">
+
+                        <q-card flat bordered style="padding-left: 4em;
+                            padding-right:
+                            4em">
+                            <q-tabs v-model="charttab" align="justify"
+                                narrow-indicator>
+                                <q-tab name="type" label="按照类型"></q-tab>
+                                <q-tab name="person" label="按照人"></q-tab>
+                                <q-tab name="date" label="按照日期"></q-tab>
+                            </q-tabs>
+                            <q-tab-panels v-model="charttab"
+                                transition-next="fade">
+                                <q-tab-panel name="type">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <q-tabs v-model="graphtpe" vertical
+                                                @update:graphtpe="upddate">
+                                                <q-btn
+                                                    @click="extcharttpe('ring')"
+                                                    flat :disabled="graphtpe ==
+                                                    'ring'"
+                                                    class="full-width">环图</q-btn>
+                                                <q-btn
+                                                    @click="extcharttpe('pie')"
+                                                    flat :disabled="graphtpe ==
+                                                    'pie'"
+                                                    class="full-width">饼图</q-btn>
+                                                <q-btn
+                                                    @click="extcharttpe('histogram')"
+                                                    flat :disabled="graphtpe ==
+                                                    'histogram'"
+                                                    class="full-width">柱状图</q-btn>
+                                                <q-btn
+                                                    @click="extcharttpe('waterfall')"
+                                                    flat :disabled="graphtpe ==
+                                                    'waterfall'"
+                                                    class="full-width">瀑布图</q-btn>
+                                            </q-tabs>
+                                        </div>
+                                        <div class="col-2">
+                                            <q-date v-model="frt" range
+                                                @range-end="upddate" flat
+                                                bordered></q-date>
+                                            <br><br><br>
+                                        </div>
+                                        <div class="col-8">
+                                            <iframe :src="ifrlnk.type"
+                                                frameborder="0"
+                                                width="100%" height="100%"
+                                                scrolling="no" seamless></iframe>
+                                        </div>
+                                    </div>
+                                </q-tab-panel>
+                                <q-tab-panel name="person">
+                                    <div class="row">
+
+                                        <div class="col-1">
+                                            <q-tabs v-model="graphtpe" vertical
+                                                @update:graphtpe="upddate">
+                                                <q-btn
+                                                    @click="extcharttpe('ring')"
+                                                    flat :disabled="graphtpe ==
+                                                    'ring'"
+                                                    class="full-width">环图</q-btn>
+                                                <q-btn
+                                                    @click="extcharttpe('pie')"
+                                                    flat :disabled="graphtpe ==
+                                                    'pie'"
+                                                    class="full-width">饼图</q-btn>
+                                                <q-btn
+                                                    @click="extcharttpe('histogram')"
+                                                    flat :disabled="graphtpe ==
+                                                    'histogram'"
+                                                    class="full-width">柱状图</q-btn>
+                                                <q-btn
+                                                    @click="extcharttpe('waterfall')"
+                                                    flat :disabled="graphtpe ==
+                                                    'waterfall'"
+                                                    class="full-width">瀑布图</q-btn>
+                                            </q-tabs>
+                                        </div>
+                                        <div class="col-2">
+                                            <q-date v-model="frt" range
+                                                @range-end="upddate" flat
+                                                bordered></q-date>
+                                            <br><br><br>
+                                        </div>
+                                        <div class="col-8">
+                                            <iframe :src="ifrlnk.person"
+                                                frameborder="0"
+                                                width="100%" height="100%"
+                                                scrolling="no" seamless></iframe>
+                                        </div>
+                                    </div>
+                                </q-tab-panel>
+
+                                <q-tab-panel name="date">
+
+                                    <div class="row">
+
+                                        <div class="col-1">
+                                            <q-tabs v-model="graphtpe" vertical
+                                                @update:graphtpe="upddate">
+                                                <q-btn
+                                                    @click="extcharttpe('ring')"
+                                                    flat :disabled="graphtpe ==
+                                                    'ring'"
+                                                    class="full-width">环图</q-btn>
+                                                <q-btn
+                                                    @click="extcharttpe('pie')"
+                                                    flat :disabled="graphtpe ==
+                                                    'pie'"
+                                                    class="full-width">饼图</q-btn>
+                                                <q-btn
+                                                    @click="extcharttpe('histogram')"
+                                                    flat :disabled="graphtpe ==
+                                                    'histogram'"
+                                                    class="full-width">柱状图</q-btn>
+                                                <q-btn
+                                                    @click="extcharttpe('waterfall')"
+                                                    flat :disabled="graphtpe ==
+                                                    'waterfall'"
+                                                    class="full-width">瀑布图</q-btn>
+                                            </q-tabs>
+                                        </div>
+                                        <div class="col-2">
+                                            <q-date v-model="frt" range
+                                                @range-end="upddate" flat
+                                                bordered></q-date>
+                                            <br><br><br>
+                                        </div>
+
+                                        <div class="col-8">
+                                            <iframe :src="ifrlnk.date"
+                                                frameborder="0"
+                                                width="100%" height="100%"
+                                                scrolling="no" seamless></iframe>
+                                        </div>
+                                    </div>
+                                </q-tab-panel>
+                            </q-tab-panels>
+                        </q-card>
+                        <br><br>
+                        <q-card flat bordered style="padding-left: 4em;
+                            padding-right:
+                            4em">
+                            <q-table :rows="rows" row-key="id" :title="tbtt"
+                                hide-select virtual-scroll flat hide-header
+                                bordered :filter="deser" selection="single"
+                                v-model:selected="appealc">
+                                <template v-slot:top-right>
+                                    <q-input borderless dense debounce="300"
+                                        v-model="deser" placeholder="搜索">
+                                        <template v-slot:append>
+                                            <q-icon name="search"></q-icon>
+                                        </template>
+                                    </q-input>
+                                </template>
+                            </q-table>
+                            <br>
+                            <q-btn outline @click="callb"
+                                v-if="appealc != []">申斥扣分</q-btn>
+                            <br><br>
+                        </q-card>
+                    </div>
+                    <br><br>
+                </q-page-container>
+
+            </q-layout>
+            <q-inner-loading :showing="logining">
+                <q-spinner-gears size="50px" color="primary"></q-spinner-gears>
+            </q-inner-loading>
+            <!-- Add the following at the end of your body tag -->
+            <script
+                src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/vue-router@4.0.11/dist/vue-router.global.prod.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/quasar@2.0.4/dist/quasar.umd.prod.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/quasar@2.0.4/dist/lang/zh-CN.umd.prod.js"></script>
+            <script src="/socket.io/socket.io.js"></script>
+            <script src="/scripts/class.js"></script>
+        </body>
+    </html>

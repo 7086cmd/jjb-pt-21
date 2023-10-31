@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>蛟川书院纪检部管理平台 - 成员</title>
+        <link
+            href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons|Material+Icons+flat
+            borderedd"
+            rel="stylesheet" type="text/css">
+        <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+            rel="stylesheet" type="text/css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/animate.css@^4.0.0/animate.min.css"
+            rel="stylesheet" type="text/css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/quasar@2.1.0/dist/quasar.prod.css"
+            rel="stylesheet" type="text/css">
+        <style>
+        .my-card {
+            width: 100%
+        }
+        </style>
+    </head>
+    <body>
+        <body>
+            <!-- example of injection point where you write your app template -->
+            <div id="q-app">
+                <q-layout view="hHh lpR fFf">
+
+                    <q-header class="bg-primary text-white animate__animated
+                        animate__zoomInDown">
+                        <q-toolbar>
+                            <q-btn dense flat round icon="menu"
+                                @click="toggleLeftDrawer"></q-btn>
+                            <q-toolbar-title>
+                                蛟川书院纪检部管理平台 - 成员
+                            </q-toolbar-title>
+
+                            <q-btn dense flat round icon="menu"
+                                @click="toggleRightDrawer"></q-btn>
+                        </q-toolbar>
+                    </q-header>
+
+                    <q-drawer show-if-above v-model="leftDrawerOpen"
+                        side="left" behavior="desktop" bordered>
+                        <q-tabs
+                            v-model="pge.page"
+                            vertical>
+                            <q-bar color="primary" class="bg-primary
+                                text-white">选项栏</q-bar>
+                            <q-tab name="root" icon="arrow_back" label="返回根目录"
+                                class="animate__animated
+                                animate__lightSpeedInRight"></q-tab>
+                            <q-tab name="home" icon="home" label="主页"
+                                class="animate__animated
+                                animate__lightSpeedInLeft"></q-tab>
+                            <q-tab name="newmenb" icon="add" label="新成员"
+                                class="animate__animated
+                                animate__lightSpeedInLeft"></q-tab>
+                            <q-tab name="member" icon="filter_1" label="成员"
+                                class="animate__animated
+                                animate__lightSpeedInRight"></q-tab>
+                            <q-tab name="deduction" icon="filter_2" label="扣分"
+                                class="animate__animated
+                                animate__lightSpeedInLeft"></q-tab>
+                            <q-tab name="callbacks" icon="filter_3" label="申斥"
+                                class="animate__animated
+                                animate__lightSpeedInLeft"></q-tab>
+                            <q-tab name="feedbacks" icon="filter_4" label="建议"
+                                class="animate__animated
+                                animate__lightSpeedInLeft"></q-tab>
+                            <q-tab name="cooprations" icon="filter_5"
+                                label="部门合作"
+                                class="animate__animated
+                                animate__lightSpeedInLeft"></q-tab>
+                            <q-tab name="exit" icon="input" label="退出登录"
+                                class="animate__animated
+                                animate__lightSpeedInLeft"></q-tab>
+                        </q-tabs>
+                    </q-drawer>
+
+                    <q-drawer show-if-above v-model="rightDrawerOpen"
+                        side="right" behavior="desktop" bordered>
+                        <q-bar color="primary" class="bg-primary text-white">消息中心</q-bar>
+                    </q-drawer>
+
+                    <q-page-container>
+
+                        <q-bar color="primary" class="bg-primary text-white">操作区</q-bar>
+                        <q-tab-panels
+                            v-model="pge.page"
+                            animated
+                            swipeable
+                            vertical
+                            transition-prev="jump-up"
+                            transition-next="jump-up">
+                            <q-tab-panel name="home">
+                                <h2 style="text-align: center;"
+                                    class='animate__animated animate__fadeIn'>你好，管理员</h2>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <q-card flat bordered
+                                            class="animate__animated
+                                            animate__zoomInDown"
+                                            id="c1">
+                                            <q-card-section>
+                                                <div class="text-h6">成员</div>
+                                                <div class="text-subtitle2">查看所有成员</div>
+                                            </q-card-section>
+                                            <q-card-actions align="center">
+                                                <q-btn flat
+                                                    @click="toTag('member')">点此进入</q-btn>
+                                            </q-card-actions>
+                                        </q-card></div>
+                                    <div class="col-4">
+                                        <q-card flat bordered
+                                            class="animate__animated
+                                            animate__zoomInDown"
+                                            id="c2">
+                                            <q-card-section>
+                                                <div class="text-h6">扣分</div>
+                                                <div class="text-subtitle2">查看所有扣分</div>
+                                            </q-card-section>
+                                            <q-card-actions align="center">
+                                                <q-btn flat
+                                                    @click="toTag('deduction')">点此进入</q-btn>
+                                            </q-card-actions>
+                                        </q-card>
+                                    </div>
+                                    <div class="col-4">
+                                        <q-card flat bordered
+                                            class="animate__animated
+                                            animate__zoomInDown"
+                                            id="c6">
+                                            <q-card-section>
+                                                <div class="text-h6">退出登录</div>
+                                                <div class="text-subtitle2">我要退出登录！</div>
+                                            </q-card-section>
+                                            <q-card-actions align="center">
+                                                <q-btn flat
+                                                    @click="toTag('exit')">点此进入</q-btn>
+                                            </q-card-actions>
+                                        </q-card>
+                                    </div>
+                                </div>
+                            </q-tab-panel>
+                            <q-tab-panel name="member">
+                                <q-table :rows="mdata"
+                                    row-key="name" hide-select virtual-scroll
+                                    flat hide-header
+                                    bordered>
+                                </q-table>
+                            </q-tab-panel>
+                            <q-tab-panel name="deduction">
+                                <q-table :rows="ddata"
+                                    row-key="number" hide-select virtual-scroll
+                                    flat hide-header bordered>
+                                </q-table>
+
+                                <q-btn outline icon-right="archive"
+                                    label="导出数据"
+                                    no-caps
+                                    @click="exportTable"></q-btn>
+                            </q-tab-panel>
+                            <q-tab-panel name="callbacks">
+                                <q-table :rows="cdata"
+                                    row-key="number" hide-select virtual-scroll
+                                    flat hide-header bordered>
+                                </q-table>
+                            </q-tab-panel>
+                            <q-tab-panel name="feedbacks">
+                                <q-table :rows="fdata"
+                                    row-key="number" hide-select virtual-scroll
+                                    flat hide-header bordered>
+                                </q-table>
+                            </q-tab-panel>
+
+                            <q-tab-panel name="newmenb">
+                                <q-form>
+                                    <q-input v-model="newMembStruct.name"
+                                        outlined label="成员姓名"></q-input>
+                                    <br><br>
+                                    <q-input type="number"
+                                        v-model.number="newMembStruct.gradeid"
+                                        outlined label="成员年级"></q-input>
+                                    <br><br>
+                                    <q-input type="number"
+                                        v-model.number="newMembStruct.classid"
+                                        outlined label="成员班级"></q-input>
+                                    <br><br>
+                                    <q-input type="number"
+                                        v-model.number="newMembStruct.number"
+                                        outlined label="成员学号"></q-input>
+                                    <br><br>
+                                    <q-btn class="full-width"
+                                        @click="submitNewMember" outline>提交</q-btn>
+                                    <h4 style="text-align: center;"
+                                        id="pwdshow"></h4>
+                                </q-form>
+                            </q-tab-panel>
+                        </q-tab-panels>
+                    </q-page-container>
+
+                </q-layout>
+            </div>
+            <!-- Add the following at the end of your body tag -->
+            <script
+                src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/quasar@2.1.0/dist/quasar.umd.prod.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/quasar@2.1.0/dist/lang/zh-CN.umd.prod.js"></script>
+            <script src="/socket.io/socket.io.js"></script>
+            <script src="/scripts/admin.js"></script>
+            <script>
+                socket.on('logout', () => {
+                    window.opener = null
+                    window.location.href = "/404"
+                    window.close()
+                })
+            </script>
+        </body>
+    </html>

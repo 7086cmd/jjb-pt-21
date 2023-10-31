@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>蛟川书院纪检部管理平台 - 404</title>
+        <link
+            href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons"
+            rel="stylesheet" type="text/css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/@mdi/font@^5.0.0/css/materialdesignicons.min.css"
+            rel="stylesheet" type="text/css">
+        <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+            rel="stylesheet" type="text/css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@^1.0.0/font/bootstrap-icons.css"
+            rel="stylesheet" type="text/css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/animate.css@^4.0.0/animate.min.css"
+            rel="stylesheet" type="text/css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/quasar@2.0.4/dist/quasar.prod.css"
+            rel="stylesheet" type="text/css">
+        <!-- 引入样式 -->
+        <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css" />
+        <style>
+            body {
+                padding-left: 12em;
+                padding-right: 12em;
+                padding-top: 6em
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- example of injection point where you write your app template -->
+        <div id="app" style="text-align: center;" v-loading="load">
+            <div v-show="this.isLogin == false">
+                <h2>蛟川书院纪检部管理平台</h2>
+                <h1>404. <br>Page Not Found.</h1>
+                <q-btn to="/" label="回到主页"
+                    outline @click="backHome"></q-btn>
+            </div>
+        </div>
+
+        <!-- Add the following at the end of your body tag -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/quasar@2.0.4/dist/quasar.umd.prod.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/quasar@2.0.4/dist/lang/zh-CN.umd.prod.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/element-plus"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+        var app = Vue.createApp({
+            data() {
+                return {
+                    isLogin: false
+                }
+            },
+            methods: {
+                    backHome() {
+                        window.location.href = '/'
+                    }
+            },
+            setup() {
+                
+            }
+        })
+        app.use(Quasar, {
+            config: {}
+        })
+        Quasar.lang.set(Quasar.lang.zhCN)
+        app.mount('#app')
+        
+    </script>
+    </body>
+</html>

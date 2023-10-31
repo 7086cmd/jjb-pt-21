@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html>
+    <!--
+    WARNING! Make sure that you match all Quasar related
+    tags to the same version! (Below it's "@2.0.4")
+  -->
+    <head>
+
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>蛟川书院纪检部管理平台 - 成员登录</title>
+        <link
+            href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons"
+            rel="stylesheet" type="text/css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/@mdi/font@^5.0.0/css/materialdesignicons.min.css"
+            rel="stylesheet" type="text/css">
+        <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+            rel="stylesheet" type="text/css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@^1.0.0/font/bootstrap-icons.css"
+            rel="stylesheet" type="text/css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/animate.css@^4.0.0/animate.min.css"
+            rel="stylesheet" type="text/css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/quasar@2.0.4/dist/quasar.prod.css"
+            rel="stylesheet" type="text/css">
+        <style>
+            body {
+                padding-left: 12em;
+                padding-right: 12em;
+                padding-top: 6em;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- example of injection point where you write your app template -->
+        <div id="app" v-loading="load">
+            <div style="padding-left:
+                8em;padding-right: 8em;">
+                <h2 style="text-align: center;">蛟川书院纪检部管理平台</h2>
+                <br>
+                <q-card bored flat>
+                    <q-card-section>
+                        <q-select
+                            outlined
+                            v-model="loginPrepairStruction.label"
+                            :options="loginPrepairStruction.namelist"></q-select>
+                        <br>
+                    </q-card-section>
+                    <q-card-section>
+                        <q-input outlined
+                            v-model="loginPrepairStruction.password" label="密码"
+                            :type="isPwd ?
+                            'password' :
+                            'text'">
+                            <template v-slot:append>
+                                <q-icon
+                                    :name="isPwd ? 'visibility_off' :
+                                    'visibility'"
+                                    class="cursor-pointer"
+                                    @click="isPwd= !isPwd"></q-icon>
+                            </template>
+                        </q-input>
+                    </q-card-section>
+                    <q-card-section>
+                        <q-btn outline label="登录" @click="login"
+                            class="full-width"></q-btn>
+                    </q-card-section>
+                </q-card>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/vue-router@4.0.11/dist/vue-router.global.prod.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/quasar@2.0.4/dist/quasar.umd.prod.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/quasar@2.0.4/dist/lang/zh-CN.umd.prod.js"></script>
+            <script src="/socket.io/socket.io.js"></script>
+            <script src="/scripts/member-login.js"></script>
+        </body>
+    </html>
